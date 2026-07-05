@@ -23,6 +23,7 @@ const madrasahMenu = [
   { path: '/madrasah/dokumen-edm', label: 'Dokumen EDM', icon: BookOpen },
   { path: '/madrasah/dokumen-rkm', label: 'Dokumen RKM', icon: FileCheck },
   { path: '/madrasah/backup', label: 'Backup & Restore', icon: Database },
+  { path: '/madrasah/pengawas', label: 'Pengawas Pendamping', icon: Users },
 ];
 
 export default function MadrasahSidebar({ collapsed, onToggle }) {

@@ -9,6 +9,7 @@ export default function DocumentRKM() {
   const madrasah = getActiveMadrasah();
   const [scores, setScores] = useState(null);
   const profile = getItem('profil_madrasah');
+  const pengawas = getItem('pengawas_pendamping');
   const rkjm = getItem('rkjm') || [];
   const rkt = getItem(`rkt_${new Date().getFullYear()}`) || [];
 
@@ -45,8 +46,8 @@ export default function DocumentRKM() {
             <div className="text-center"><p className="text-xs mb-10">Kepala Madrasah,</p><p className="text-xs font-bold underline">{profile?.kepalaMadrasah || '...'}</p><p className="text-xs">NIP. {profile?.nipKepala || '...'}</p></div>
           </div>
           <p className="text-xs text-center mt-12">Mengetahui,<br/>Pengawas Madrasah</p>
-          <p className="text-xs text-center mt-10 font-bold underline">[Nama Pengawas]</p>
-          <p className="text-xs text-center">NIP. ...</p>
+          <p className="text-xs text-center mt-10 font-bold underline">{pengawas?.nama || '[Nama Pengawas]'}</p>
+          <p className="text-xs text-center">NIP. {pengawas?.nip || '...'}</p>
         </div>
 
         {/* BAB I: PENDAHULUAN */}

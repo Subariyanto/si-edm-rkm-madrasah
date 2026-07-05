@@ -9,6 +9,7 @@ export default function DocumentEDM() {
   const madrasah = getActiveMadrasah();
   const [scores, setScores] = useState(null);
   const profile = getItem('profil_madrasah');
+  const pengawas = getItem('pengawas_pendamping');
   const vision = getItem('visi_misi');
 
   useEffect(() => { setScores(calculateScores()); }, []);
@@ -40,9 +41,10 @@ export default function DocumentEDM() {
         <div className="page-break-after">
           <h3 className="text-center font-bold mb-6">LEMBAR PENGESAHAN</h3>
           <p className="text-sm text-justify mb-4">Laporan Evaluasi Diri Madrasah (EDM) ini telah disusun oleh Tim Penjaminan Mutu (TPM) {madrasah?.nama || 'Madrasah'} sebagai bahan penyusunan Rencana Kerja Madrasah (RKM) tahun pelajaran {madrasah?.tahunPelajaran || getTahunAjaran()}.</p>
-          <div className="grid grid-cols-2 gap-8 mt-12">
+          <div className="grid grid-cols-3 gap-4 mt-12">
             <div className="text-center"><p className="text-sm mb-8">Ketua TPM,</p><p className="text-sm font-bold underline">[Nama Ketua TPM]</p></div>
             <div className="text-center"><p className="text-sm mb-8">Kepala Madrasah,</p><p className="text-sm font-bold underline">{profile?.kepalaMadrasah || '...'}</p><p className="text-xs">NIP. {profile?.nipKepala || '...'}</p></div>
+            <div className="text-center"><p className="text-sm mb-8">Pengawas Madrasah,</p><p className="text-sm font-bold underline">{pengawas?.nama || '[Nama Pengawas]'}</p><p className="text-xs">NIP. {pengawas?.nip || '...'}</p></div>
           </div>
         </div>
 

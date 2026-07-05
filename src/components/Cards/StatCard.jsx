@@ -1,4 +1,4 @@
-export default function StatCard({ title, value, subtitle, icon: Icon, color = 'primary', className }) {
+export default function StatCard({ title, value, subtitle, icon, color = 'primary', className }) {
   const colorMap = {
     primary: 'bg-primary-50 text-primary-700',
     green: 'bg-green-50 text-green-700',
@@ -17,9 +17,9 @@ export default function StatCard({ title, value, subtitle, icon: Icon, color = '
           <p className="text-2xl font-bold mt-1">{value}</p>
           {subtitle && <p className="text-xs text-gray-400 mt-1">{subtitle}</p>}
         </div>
-        {Icon && (
+        {icon && (
           <div className={`p-3 rounded-lg ${iconBg}`}>
-            <Icon className="w-5 h-5" />
+            {icon}
           </div>
         )}
       </div>

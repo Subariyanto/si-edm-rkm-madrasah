@@ -5,6 +5,24 @@ import { School, Save, Check, MapPin, Hash, Building2, Phone, Mail, Globe } from
 
 const STORAGE_KEY = 'profil_madrasah';
 
+function InputField({ label, name, type = 'text', placeholder = '', required = false, icon: Icon, value, onChange }) {
+  return (
+    <div>
+      <label className="block text-sm font-medium text-gray-700 mb-1">
+        {label} {required && <span className="text-red-500">*</span>}
+      </label>
+      <div className="relative">
+        {Icon && <Icon size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />}
+        <input
+          type={type} name={name} value={value || ''} onChange={onChange}
+          placeholder={placeholder}
+          className={`w-full ${Icon ? 'pl-10' : 'pl-3'} pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-green-500 focus:border-green-500`}
+        />
+      </div>
+    </div>
+  );
+}
+
 export default function ProfilMadrasah() {
   const madrasah = getActiveMadrasah();
   const [form, setForm] = useState({
@@ -48,22 +66,6 @@ export default function ProfilMadrasah() {
     showNotif('Profil madrasah berhasil disimpan');
   };
 
-  const Input = ({ label, name, type = 'text', placeholder = '', required = false, icon: Icon }) => (
-    <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">
-        {label} {required && <span className="text-red-500">*</span>}
-      </label>
-      <div className="relative">
-        {Icon && <Icon size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />}
-        <input
-          type={type} name={name} value={form[name] || ''} onChange={handleChange}
-          placeholder={placeholder}
-          className={`w-full ${Icon ? 'pl-10' : 'pl-3'} pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-green-500 focus:border-green-500`}
-        />
-      </div>
-    </div>
-  );
-
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
@@ -84,9 +86,9 @@ export default function ProfilMadrasah() {
           <School size={18} className="text-green-700" /> Identitas Madrasah
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <Input label="Nama Madrasah" name="nama" required icon={School} placeholder="Nama lengkap madrasah" />
-          <Input label="NSM" name="nsm" icon={Hash} placeholder="Nomor Statistik Madrasah" />
-          <Input label="NPSN" name="npsn" icon={Hash} placeholder="Nomor Pokok Sekolah Nasional" />
+          <InputField label="Nama Madrasah" name="nama" required icon={School} value={form.nama} onChange={handleChange} placeholder="Nama lengkap madrasah" />
+          <InputField label="NSM" name="nsm" icon={Hash} value={form.nsm} onChange={handleChange} placeholder="Nomor Statistik Madrasah" />
+          <InputField label="NPSN" name="npsn" icon={Hash} value={form.npsn} onChange={handleChange} placeholder="Nomor Pokok Sekolah Nasional" />
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Jenjang</label>
             <select name="jenjang" value={form.jenjang} onChange={handleChange} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
@@ -102,7 +104,7 @@ export default function ProfilMadrasah() {
               <option value="Negeri">Negeri</option>
             </select>
           </div>
-          <Input label="Tahun Berdiri" name="tahunBerdiri" type="number" placeholder="1990" />
+          <InputField label="Tahun Berdiri" name="tahunBerdiri" type="number" value={form.tahunBerdiri} onChange={handleChange} placeholder="1990" />
         </div>
       </div>
 
@@ -113,13 +115,13 @@ export default function ProfilMadrasah() {
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="md:col-span-2">
-            <Input label="Alamat" name="alamat" icon={MapPin} placeholder="Jl. ..." />
+            <InputField label="Alamat" name="alamat" icon={MapPin} value={form.alamat} onChange={handleChange} placeholder="Jl. ..." />
           </div>
-          <Input label="Desa/Kelurahan" name="desa" />
-          <Input label="Kecamatan" name="kecamatan" />
-          <Input label="Kabupaten" name="kabupaten" />
-          <Input label="Provinsi" name="provinsi" />
-          <Input label="Kode Pos" name="kodePos" />
+          <InputField label="Desa/Kelurahan" name="desa" value={form.desa} onChange={handleChange} />
+          <InputField label="Kecamatan" name="kecamatan" value={form.kecamatan} onChange={handleChange} />
+          <InputField label="Kabupaten" name="kabupaten" value={form.kabupaten} onChange={handleChange} />
+          <InputField label="Provinsi" name="provinsi" value={form.provinsi} onChange={handleChange} />
+          <InputField label="Kode Pos" name="kodePos" value={form.kodePos} onChange={handleChange} />
         </div>
       </div>
 
@@ -129,9 +131,9 @@ export default function ProfilMadrasah() {
           <Phone size={18} className="text-green-700" /> Kontak
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Input label="Telepon" name="telepon" icon={Phone} placeholder="0331-..." />
-          <Input label="Email" name="email" type="email" icon={Mail} placeholder="madrasah@email.com" />
-          <Input label="Website" name="website" icon={Globe} placeholder="https://..." />
+          <InputField label="Telepon" name="telepon" icon={Phone} value={form.telepon} onChange={handleChange} placeholder="0331-..." />
+          <InputField label="Email" name="email" type="email" icon={Mail} value={form.email} onChange={handleChange} placeholder="madrasah@email.com" />
+          <InputField label="Website" name="website" icon={Globe} value={form.website} onChange={handleChange} placeholder="https://..." />
         </div>
       </div>
 
@@ -141,10 +143,10 @@ export default function ProfilMadrasah() {
           <Building2 size={18} className="text-green-700" /> Kepala Madrasah & Yayasan
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Input label="Nama Kepala Madrasah" name="namaKepala" />
-          <Input label="NIP Kepala" name="nipKepala" />
-          <Input label="Nama Yayasan" name="namaYayasan" />
-          <Input label="SK Pendirian" name="skPendirian" />
+          <InputField label="Nama Kepala Madrasah" name="namaKepala" value={form.namaKepala} onChange={handleChange} />
+          <InputField label="NIP Kepala" name="nipKepala" value={form.nipKepala} onChange={handleChange} />
+          <InputField label="Nama Yayasan" name="namaYayasan" value={form.namaYayasan} onChange={handleChange} />
+          <InputField label="SK Pendirian" name="skPendirian" value={form.skPendirian} onChange={handleChange} />
         </div>
       </div>
 
@@ -154,14 +156,14 @@ export default function ProfilMadrasah() {
           <Check size={18} className="text-green-700" /> Akreditasi & Data Umum
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Input label="Akreditasi" name="akreditasi" placeholder="A / B / C" />
-          <Input label="SK Akreditasi" name="skAkreditasi" />
-          <Input label="Luas Tanah (m²)" name="luasTanah" type="number" />
-          <Input label="Luas Bangunan (m²)" name="luasBangunan" type="number" />
-          <Input label="Jumlah Rombel" name="jumlahRombel" type="number" />
-          <Input label="Jumlah Siswa" name="jumlahSiswa" type="number" />
-          <Input label="Jumlah Guru" name="jumlahGuru" type="number" />
-          <Input label="Jumlah Tendik" name="jumlahTendik" type="number" />
+          <InputField label="Akreditasi" name="akreditasi" value={form.akreditasi} onChange={handleChange} placeholder="A / B / C" />
+          <InputField label="SK Akreditasi" name="skAkreditasi" value={form.skAkreditasi} onChange={handleChange} />
+          <InputField label="Luas Tanah (m²)" name="luasTanah" type="number" value={form.luasTanah} onChange={handleChange} />
+          <InputField label="Luas Bangunan (m²)" name="luasBangunan" type="number" value={form.luasBangunan} onChange={handleChange} />
+          <InputField label="Jumlah Rombel" name="jumlahRombel" type="number" value={form.jumlahRombel} onChange={handleChange} />
+          <InputField label="Jumlah Siswa" name="jumlahSiswa" type="number" value={form.jumlahSiswa} onChange={handleChange} />
+          <InputField label="Jumlah Guru" name="jumlahGuru" type="number" value={form.jumlahGuru} onChange={handleChange} />
+          <InputField label="Jumlah Tendik" name="jumlahTendik" type="number" value={form.jumlahTendik} onChange={handleChange} />
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login, loginMadrasah } from '../services/authService';
 import { getItem } from '../services/storageService';
@@ -12,13 +12,13 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // Auto-redirect if already logged in
-  const auth = getItem('auth');
-  if (auth && mode === 'choose') {
-    if (auth.role === 'admin') navigate('/admin', { replace: true });
-    else navigate('/madrasah', { replace: true });
-    return null;
-  }
+  useEffect(() => {
+    const auth = getItem('auth');
+    if (auth) {
+      if (auth.role === 'admin') navigate('/admin', { replace: true });
+      else navigate('/madrasah', { replace: true });
+    }
+  }, [navigate]);
 
   const handleAdminLogin = (e) => {
     e.preventDefault(); setError('');
